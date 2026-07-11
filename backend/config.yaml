@@ -1,0 +1,91 @@
+# yellowbullNovel 后端配置
+
+server:
+  port: 8080
+  frontend_dir: "../frontend/dist"
+  allow_origins:
+    - "http://localhost:5173"
+    - "http://localhost:3000"
+    - "http://127.0.0.1:5173"
+
+database:
+  driver: sqlite
+  dsn: "data/yellowbull.db"
+
+writing:
+  project_root: "data"
+  chapter_review_mode: "auto"          # auto / manual
+  revision_gate: "strict"              # strict / lenient / always
+  max_review_iterations: 1
+  foundation_review_retries: 2
+
+scheduler:
+  write_cron: "0 */2 * * *"            # 每 2 小时写一轮
+  radar_cron: "0 */6 * * *"            # 每 6 小时扫榜
+  max_concurrent_books: 3
+  chapters_per_cycle: 1
+  max_chapters_per_day: 10
+  cooldown_ms: 30000                   # 章节间冷却 30 秒
+
+llm:
+  default_provider: "openai"
+  default_model: "gpt-4o"
+  providers:
+    openai:
+      type: "openai"
+      base_url: "https://api.openai.com/v1"
+      api_key: ""
+      model: "gpt-4o"
+    anthropic:
+      type: "anthropic"
+      base_url: "https://api.anthropic.com"
+      api_key: ""
+      model: "claude-sonnet-4-20250514"
+    deepseek:
+      type: "openai"
+      base_url: "https://api.deepseek.com/v1"
+      api_key: ""
+      model: "deepseek-chat"
+    moonshot:
+      type: "openai"
+      base_url: "https://api.moonshot.cn/v1"
+      api_key: ""
+      model: "moonshot-v1-128k"
+    zhipu:
+      type: "openai"
+      base_url: "https://open.bigmodel.cn/api/paas/v4"
+      api_key: ""
+      model: "glm-4-plus"
+    siliconflow:
+      type: "openai"
+      base_url: "https://api.siliconflow.cn/v1"
+      api_key: ""
+      model: "Qwen/Qwen2.5-72B-Instruct"
+    ollama:
+      type: "ollama"
+      base_url: "http://localhost:11434/v1"
+      api_key: "ollama"
+      model: "qwen2.5:32b"
+  agent_overrides:
+    architect:
+      provider: "openai"
+      model: "gpt-4o"
+    planner:
+      provider: "openai"
+      model: "gpt-4o"
+    writer:
+      provider: "openai"
+      model: "gpt-4o"
+    auditor:
+      provider: "openai"
+      model: "gpt-4o-mini"
+    reviser:
+      provider: "openai"
+      model: "gpt-4o"
+
+notify:
+  telegram_bot_token: ""
+  telegram_chat_id: ""
+  feishu_webhook: ""
+  wechat_webhook: ""
+  generic_webhook: ""
