@@ -1,0 +1,6 @@
+# 忽略 inkos 源码目录
+/inkos/
+
+# 系统文件
+.DS_Store
+Thumbs.db
